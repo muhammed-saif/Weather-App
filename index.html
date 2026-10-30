@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Muhammed Saif">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dist/output.css">
+    <title>WeatherNow</title>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Header Section -->
+    <header id="main-header" class="w-full transition-all ease-in duration-300 bg-[#F5F7FA] dark:bg-[#161D21] sticky top-0 z-100">
+        <nav id="header-nav" class="container mx-auto px-4 lg:px-0 flex py-[10px] md:py-[20px] justify-between items-center">
+            <a href="#" class="text-2xl md:text-3xl font-bold text-[#4D4D4D] dark:text-[#B4BEC4]">Weather<span class="text-green-600">Now</span></a>
+            <!-- Light or Dark Button -->
+            <button id="light-dark-btn" class="bg-gray-300 p-1 md:p-2 rounded-full border-2 border-gray-900 dark:border-white dark:bg-[#3d3939] cursor-pointer">
+                <svg class="hidden dark:block size-4 md:size-5 stroke-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+                <svg class="dark:hidden size-4 md:size-5 stroke-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+    <!-- Search Section -->
+    <section class="w-full bg-[#F5F7FA] dark:bg-[#161D21]">
+        <div class="container mx-auto px-4 lg:px-0 py-[25px] md:py-[60px]">
+            <h1 class="text-3xl font-bold md:text-[64px] md:font-semibold md:leading-18 text-center text-[#4D4D4D] dark:text-[#B4BEC4]">Check the weather<br> <span class="text-green-600">in any city</span></h1>
+            <p class="text-xs md:text-md font-medium text-center text-[#717171] dark:text-[#9AA6AD] my-5">Type a city name to see today's weather and the next 5 days</p>
+            <div class="w-full md:w-1/2 mx-auto flex">
+                <input id="cityInput" class="w-full h-12 bg-[#D9DBE1]/40 dark:bg-[#D9DBE1]/20 rounded-lg text-sm text-[#4D4D4D] dark:text-[#D9DBE1] pl-3 placeholder:text-sm placeholder:font-normal placeholder:text-[#717171] dark:placeholder:text-[#D9DBE1] outline-0 focus:border-2 focus:border-green-500" type="text" name="city" placeholder="Search city...">
+                <button id="searchBtn" class="text-sm text-white bg-green-600 py-2 px-6 ml-3 rounded-lg cursor-pointer hover:bg-green-700 transition-all hover:scale-105 duration-200">Search</button>
+            </div>
+            <p id="errorMsg" class="hidden text-sm font-medium text-center text-red-500 mt-4"></p>
+        </div>
+    </section>
+    <!-- Current Weather Section -->
+    <section class="w-full dark:bg-[#121212]">
+        <div class="container mx-auto px-4 lg:px-0 flex flex-wrap justify-between py-10 md:py-20">
+            <!-- Main Card -->
+            <div class="w-full lg:w-5/12 py-8 px-7 shadow-sm dark:shadow-gray-500 dark:bg-[#161D21] rounded-lg mb-5 lg:mb-0">
+                <h2 id="cityName" class="text-[20px] md:text-[28px] text-[#4D4D4D] dark:text-[#B4BEC4] font-bold leading-9 text-center">--</h2>
+                <p id="todayDate" class="text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">--</p>
+                <div id="weatherIcon" class="text-[80px] md:text-[100px] leading-none text-center my-5">⛅</div>
+                <h3 id="temp" class="text-3xl md:text-[64px] font-bold md:font-semibold text-green-600 leading-9 md:leading-18 text-center">--</h3>
+                <p id="weatherText" class="text-md font-medium text-[#717171] dark:text-[#9AA6AD] leading-6 text-center mt-2">--</p>
+            </div>
+            <!-- Details Container -->
+            <div class="w-full lg:w-6/13 flex flex-wrap justify-between content-between">
+                <!-- Detail Card -->
+                <div class="w-[48%] py-6 px-4 shadow-sm dark:shadow-gray-500 dark:bg-[#161D21] rounded-lg mb-3 md:mb-5 lg:mb-0">
+                    <p class="text-xs md:text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">Feels like</p>
+                    <h4 id="feelsLike" class="text-lg md:text-3xl font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-7 md:leading-9 text-center mt-1">--</h4>
+                </div>
+                <!-- Detail Card -->
+                <div class="w-[48%] py-6 px-4 shadow-sm dark:shadow-gray-500 dark:bg-[#161D21] rounded-lg mb-3 md:mb-5 lg:mb-0">
+                    <p class="text-xs md:text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">Humidity</p>
+                    <h4 id="humidity" class="text-lg md:text-3xl font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-7 md:leading-9 text-center mt-1">--</h4>
+                </div>
+                <!-- Detail Card -->
+                <div class="w-[48%] py-6 px-4 shadow-sm dark:shadow-gray-500 dark:bg-[#161D21] rounded-lg mb-3 md:mb-5 lg:mb-0">
+                    <p class="text-xs md:text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">Wind speed</p>
+                    <h4 id="wind" class="text-lg md:text-3xl font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-7 md:leading-9 text-center mt-1">--</h4>
+                </div>
+                <!-- Detail Card -->
+                <div class="w-[48%] py-6 px-4 shadow-sm dark:shadow-gray-500 dark:bg-[#161D21] rounded-lg lg:mb-0">
+                    <p class="text-xs md:text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">High / Low</p>
+                    <h4 id="highLow" class="text-lg md:text-3xl font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-7 md:leading-9 text-center mt-1">--</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Forecast Section -->
+    <section class="w-full bg-[#F5F7FA] dark:bg-[#161D21]">
+        <div class="container mx-auto px-4 lg:px-0 py-10 md:py-20">
+            <h2 class="text-3xl md:text-4xl font-bold md:font-semibold text-center text-[#4D4D4D] dark:text-[#B4BEC4] leading-9 md:leading-11">Next 5 days</h2>
+            <p class="text-md font-medium text-center text-[#717171] dark:text-[#9AA6AD] my-4">High and low temperature for each day</p>
+            <!-- Card Container -->
+            <div class="w-full flex flex-wrap justify-evenly lg:justify-between lg:flex-nowrap mt-10">
+                <!-- Forecast Card -->
+                <div class="w-[46%] md:w-[30%] lg:w-[18%] py-6 px-3 bg-white dark:bg-[#121212] shadow-sm rounded-lg mb-3 md:mb-5 lg:mb-0">
+                    <p class="forecast-day text-sm font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-5 text-center">--</p>
+                    <div class="forecast-icon text-[40px] leading-none text-center my-3">⛅</div>
+                    <p class="forecast-temp text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">--</p>
+                </div>
+                <!-- Forecast Card -->
+                <div class="w-[46%] md:w-[30%] lg:w-[18%] py-6 px-3 bg-white dark:bg-[#121212] shadow-sm rounded-lg mb-3 md:mb-5 lg:mb-0">
+                    <p class="forecast-day text-sm font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-5 text-center">--</p>
+                    <div class="forecast-icon text-[40px] leading-none text-center my-3">⛅</div>
+                    <p class="forecast-temp text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">--</p>
+                </div>
+                <!-- Forecast Card -->
+                <div class="w-[46%] md:w-[30%] lg:w-[18%] py-6 px-3 bg-white dark:bg-[#121212] shadow-sm rounded-lg mb-3 md:mb-5 lg:mb-0">
+                    <p class="forecast-day text-sm font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-5 text-center">--</p>
+                    <div class="forecast-icon text-[40px] leading-none text-center my-3">⛅</div>
+                    <p class="forecast-temp text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">--</p>
+                </div>
+                <!-- Forecast Card -->
+                <div class="w-[46%] md:w-[30%] lg:w-[18%] py-6 px-3 bg-white dark:bg-[#121212] shadow-sm rounded-lg mb-3 md:mb-5 lg:mb-0">
+                    <p class="forecast-day text-sm font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-5 text-center">--</p>
+                    <div class="forecast-icon text-[40px] leading-none text-center my-3">⛅</div>
+                    <p class="forecast-temp text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">--</p>
+                </div>
+                <!-- Forecast Card -->
+                <div class="w-[46%] md:w-[30%] lg:w-[18%] py-6 px-3 bg-white dark:bg-[#121212] shadow-sm rounded-lg mb-3 md:mb-5 lg:mb-0">
+                    <p class="forecast-day text-sm font-semibold text-[#4D4D4D] dark:text-[#B4BEC4] leading-5 text-center">--</p>
+                    <div class="forecast-icon text-[40px] leading-none text-center my-3">⛅</div>
+                    <p class="forecast-temp text-sm font-medium text-[#717171] dark:text-[#9AA6AD] leading-5 text-center">--</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Section -->
+    <footer class="w-full bg-[#263238]">
+        <div class="container mx-auto px-4 lg:px-0 py-10">
+            <p class="text-sm font-normal text-[#F5F7FA] leading-5 text-center mb-2">Weather data by Open-Meteo.com</p>
+            <!-- Developer footnote -->
+            <h6 class="text-[12px] text-center italic text-gray-300"> Developed by ~ <a href="https://www.linkedin.com/in/muhammed-saif-"><u class="hover:text-green-500 transition-colors duration-200 ">Saif</u></a> </h6>
+        </div>
+    </footer>
+<script src="./src/index.js"></script>
+</body>
+</html>
