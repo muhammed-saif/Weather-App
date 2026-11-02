@@ -2,3 +2,8 @@
 
 /* dark mode works with the "dark" class on <html> (light / dark button) */
 @custom-variant dark (&:where(.dark, .dark *));
+
+@utility container {
+  margin-inline: auto;
+  width: 90%;
+}
